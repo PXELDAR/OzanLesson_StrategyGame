@@ -10,7 +10,7 @@ public class GridSystem
     private float size;
     private GridObject[,] gridObjectsArray;
 
-    public GridSystem(int width, int height, float size)
+    public GridSystem(int width, int height, float size) //constructor
     {
         this.width = width;
         this.height = height;
@@ -51,12 +51,5 @@ public class GridSystem
         return new Vector3(gridObject.x, 0, gridObject.z) * size;
 
     }
-
-
-
-
- 
-
-   
 
 }
