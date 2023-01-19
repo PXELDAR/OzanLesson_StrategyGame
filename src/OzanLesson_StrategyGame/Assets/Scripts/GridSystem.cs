@@ -5,16 +5,16 @@ using UnityEngine;
 public class GridSystem
 {
 
-    private int width;
-    private int height;
-    private float size;
+    public int width;
+    public int height;
+    public float size;
     private GridObject[,] gridObjectsArray;
 
     public GridSystem(int width, int height, float size) //constructor
     {
-        this.width = width;
-        this.height = height;
-        this.size = size;
+        this.width = width; // x axis
+        this.height = height; // y axis
+        this.size = size; // z axis
 
         gridObjectsArray = new GridObject[width,height];
 

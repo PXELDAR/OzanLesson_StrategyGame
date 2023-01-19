@@ -7,8 +7,9 @@ public class LevelGrid : MonoBehaviour
     [SerializeField][Range(2,20)] int width;
     [SerializeField][Range(2, 20)] int height;
     [SerializeField][Range(1f, 5f)] float size;
-    [SerializeField] Transform gridPrefab;
+    public Transform gridPrefab;
     GridSystem levelGridSystem;
+
 
     private void Awake()
     {
