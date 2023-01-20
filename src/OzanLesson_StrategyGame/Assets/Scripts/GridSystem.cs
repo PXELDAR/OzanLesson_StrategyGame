@@ -10,6 +10,21 @@ public class GridSystem
     public float size;
     private GridObject[,] gridObjectsArray;
 
+
+    private GridSystem() { }
+    private static GridSystem instance = null;
+    public static GridSystem Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GridSystem();
+            }
+            return instance;
+        }
+    }
+
     public GridSystem(int width, int height, float size) //constructor
     {
         this.width = width; // x axis
@@ -23,13 +38,15 @@ public class GridSystem
             for(int z=0; z<height; z++) 
             {
                 gridObjectsArray[x, z] = new GridObject(x,z);
+                
             }
         
         }
         
     }
 
-    public void CreateGridDebug(Transform debugPrefab)
+
+    public void CreateGridDebug(Transform debugPrefab) 
     {
         for (int x = 0; x < width; x++)
         {

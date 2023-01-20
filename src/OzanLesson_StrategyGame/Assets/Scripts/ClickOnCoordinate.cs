@@ -7,20 +7,24 @@ public class ClickOnCoordinate : MonoBehaviour
     private Vector3 mousePosition;
     private Vector3 worldPosition;
     private Vector3 clickedWorldPosition;
-    GridSystem levelGridSystem;
     
-    void Start()
+    
+    
+    float width;
+    float height;
+    float size;
+
+    private void OnEnable()
     {
-        // Transform gridPosition = GetComponent<LevelGrid>().gridPrefab;
-        // clickedWorldPosition = gridPosition.position;
 
+        width = GridSystem.Instance.width;
+        height = GridSystem.Instance.height;
+        size = GridSystem.Instance.size;
 
-
-
-
+        
     }
 
-    
+
     void Update()
     {
         DebugWhenClickedOnCoordinate();
@@ -28,8 +32,9 @@ public class ClickOnCoordinate : MonoBehaviour
 
     private void DebugWhenClickedOnCoordinate()
     {
+        
         mousePosition = Input.mousePosition;
-        clickedWorldPosition = new Vector3(levelGridSystem.width, levelGridSystem.height, mousePosition.z);
+        clickedWorldPosition = new Vector3(width, height, mousePosition.z);
         mousePosition = clickedWorldPosition;
         worldPosition= Camera.main.ScreenToViewportPoint(mousePosition);
 
