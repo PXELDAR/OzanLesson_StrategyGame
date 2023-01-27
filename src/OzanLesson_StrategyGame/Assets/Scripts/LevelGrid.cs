@@ -10,6 +10,12 @@ public class LevelGrid : MonoBehaviour
     public Transform gridPrefab;
     GridSystem levelGridSystem;
 
+    public static LevelGrid instance;
+
+    
+    
+        
+
 
 
     private void Awake()
@@ -17,6 +23,13 @@ public class LevelGrid : MonoBehaviour
         levelGridSystem= new GridSystem(width, height, size);
         levelGridSystem.CreateGridDebug(gridPrefab);
         
+        instance= this;
+    }
+
+    public Vector3 GetGridPosition(Vector3 worldPosition)
+    {
+        return new Vector3(Mathf.RoundToInt(worldPosition.x / size), 0, Mathf.RoundToInt(worldPosition.z / size));
+
     }
 
   

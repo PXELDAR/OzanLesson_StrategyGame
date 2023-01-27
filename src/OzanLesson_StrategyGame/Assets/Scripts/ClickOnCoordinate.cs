@@ -36,10 +36,7 @@ public class ClickOnCoordinate : MonoBehaviour
         mousePosition = Input.mousePosition;
         clickedWorldPosition = new Vector3(width, height, mousePosition.z);
         mousePosition = clickedWorldPosition;
-        worldPosition= Camera.main.ScreenToViewportPoint(mousePosition);
-
-        
-        
+        worldPosition= Camera.main.ScreenToViewportPoint(mousePosition);    
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

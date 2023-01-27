@@ -25,6 +25,8 @@ public class GridSystem
         }
     }
 
+
+
     public GridSystem(int width, int height, float size) //constructor
     {
         this.width = width; // x axis
