@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGrid : MonoBehaviour
 {
-    [SerializeField][Range(2,20)] public int width;
+    [SerializeField][Range(2, 20)] public int width;
     [SerializeField][Range(2, 20)] public int height;
     [SerializeField][Range(1f, 5f)] public float size;
-    public Transform gridPrefab;
-    public GridSystem levelGridSystem;
+    [SerializeField] private Transform gridPrefab;
+    public GridSystem levelGridSystem { get; private set; }
 
     public static LevelGrid instance;
 
 
     private void Awake()
     {
-        levelGridSystem= new GridSystem(width, height, size);
+        levelGridSystem = new GridSystem(width, height, size);
         levelGridSystem.CreateGridDebug(gridPrefab);
-        
-        instance= this;
+
+        instance = this;
     }
 
     public Vector3 GetGridPosition(Vector3 worldPosition)
@@ -27,6 +25,6 @@ public class LevelGrid : MonoBehaviour
 
     }
 
-    
-  
+
+
 }
