@@ -67,8 +67,27 @@ public class GridSystem
     public Vector3 GetWorldPosition(GridObject gridObject)
 
     {
-        return new Vector3(gridObject.x, 0, gridObject.z) * size;
+        Debug.Log(gridObject.x + "," + gridObject.z);
+        Vector3 pos = new Vector3 (gridObject.x, 0, gridObject.z) * size;
+        Debug.Log(pos);
+        return pos;
 
     }
 
+    public GridObject GetGridObject(Vector3 gridPosition)
+    {
+        GridObject grid = gridObjectsArray[(int)gridPosition.x, (int)gridPosition.z]; //variable casting
+
+        if(grid != null)
+        {
+            return grid;
+        }
+
+        else
+        {
+            Debug.Log("Get Grid Object null deðer döndürdü");
+            return null;
+            
+        }
+    }
 }
