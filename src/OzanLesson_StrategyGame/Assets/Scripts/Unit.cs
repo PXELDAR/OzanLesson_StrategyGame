@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class UnitTest : MonoBehaviour
+public class Unit : MonoBehaviour
 {
     Vector3 targetPosition;
     private bool canMove;
@@ -33,7 +33,7 @@ public class UnitTest : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseButton = LevelGrid.instance.GetGridPosition(MouseWorld.GetPosition());
-            gridToGo = LevelGrid.instance.levelGridSystem.GetGridObject(mouseButton);
+            gridToGo = LevelGrid.instance.levelGridSystem.GetGridObject(mouseButton); // TODO: Array out of range exception hatasý.
             Move(gridToGo);
         }
     }
