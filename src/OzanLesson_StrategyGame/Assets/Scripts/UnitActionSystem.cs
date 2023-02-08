@@ -57,9 +57,19 @@ public class UnitActionSystem : MonoBehaviour
 
             if (TryHandleUnitSelection())
             {
+                GridPosition mouseGridPosition = LevelGrid.instance.GetGridPosition(MouseWorld.GetPosition());
+
+                if (selectedUnit.GetMoveAction().IsValidActionPoisiton(mouseGridPosition))
+                {
+                    SetBusy();
+                }
 
             }
+
+
         }
+
+        
 
         
     }
@@ -91,5 +101,15 @@ public class UnitActionSystem : MonoBehaviour
     {
         selectedUnit = unit;
         SelectedUnitChange(selectedUnit);
+    }
+
+    public void SetBusy()
+    {
+        isBusy= true;
+    }
+
+    public void ClearSetBusy()
+    {
+        isBusy=false;
     }
 }

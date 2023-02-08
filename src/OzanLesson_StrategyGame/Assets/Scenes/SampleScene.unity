@@ -493,7 +493,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 80.43, z: 0}
 --- !u!114 &1711869593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,9 +536,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4758e6161fc30f45b83c4344ad32e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  unitLayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!4 &1833608465
 Transform:
   m_ObjectHideFlags: 0

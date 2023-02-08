@@ -1,0 +1,104 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class MoveAction : BaseAction
+{
+    [SerializeField] int maxMoveDistance = 1;
+    private Vector3 targetPosition;
+    float stoppingDistance = .1f;
+    float moveSpeed = 5f;
+    float rotateSpeed =10f;
+    
+
+    protected override void Awake() //Override olduðu zaman super class çalýþmaz.
+    {
+        base.Awake(); // override fonksiyonlarda "base." ile üst sýnýfýn içindekilere ulaþýlýr.
+        targetPosition= transform.position;
+    }
+
+
+    void Update()
+    {
+        if (!isActive) return; //protection flag
+
+        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+        
+
+        if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
+        {
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            //Burada animator geldiði zaman yürüme animasyonunu aktive ettir.
+        }
+
+        else
+        {
+            isActive = false;
+            //Yürüme animasyonunu durdur.
+        }
+
+        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+
+
+   
+    }
+
+    public void Move(Vector3 gridPosition)
+    {
+        targetPosition = LevelGrid.instance.levelGridSystem.GetWorldPosition(gridPosition);
+    }
+
+    public bool IsValidActionPoisiton(GridPosition gridposition)
+    {
+        List<GridPosition> validGridPositionList= GetValidActionGridPositionList();
+        return validGridPositionList.Contains(gridposition); //dýþarýdan gelen pozisyon bu listede var mý? 
+        //contains fonksiyonu true veya false döndürür
+
+    }
+
+    
+
+    public List<GridPosition> GetValidActionGridPositionList()
+    {
+        List<Vector3> validGridPositionList = new List<Vector3>();
+        Vector3 unitGridposition = unit.GetGridPosition();
+
+        for(int x = -maxMoveDistance; x < maxMoveDistance; x++)
+        {
+            for (int z = -maxMoveDistance; z < maxMoveDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridposition + offsetGridPosition;
+
+                if (!LevelGrid.instance.IsGridPositionValid(testGridPosition))
+                {
+                    continue; // for loopunu bir sonraki loopa geçirir.
+                }
+
+                if ( unitGridposition == testGridPosition)
+                {
+                    continue;
+                }
+
+                if (LevelGrid.instance.HasAnyUnitOnSelectedGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                validGridPositionList.Add(testGridPosition);
+            }
+        }
+
+        return validGridPositionList;
+
+    }
+    override public string GetActionName()
+    {
+        return "Move";
+    }
+
+
+
+
+}

@@ -19,12 +19,40 @@ public class LevelGrid : MonoBehaviour
         instance = this;
     }
 
-    public Vector3 GetGridPosition(Vector3 worldPosition)
+    public GridPosition GetGridPosition(Vector3 worldPosition)
     {
-        return new Vector3(Mathf.RoundToInt(worldPosition.x / size), 0, Mathf.RoundToInt(worldPosition.z / size));
+        return new GridPosition(Mathf.RoundToInt(worldPosition.x / size), Mathf.RoundToInt(worldPosition.z / size));
 
     }
 
+    public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
+    {
+        GridObject gridObject = levelGridSystem.GetGridObject(gridPosition);
+        gridObject.AddUnit(unit);
+    }
 
+    public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
+    {
+        GridObject gridObject = levelGridSystem.GetGridObject(gridPosition);
+        gridObject.RemoveUnit(unit);
+    }
+
+    public void UnitgMoveGridPosition(Unit unit, GridPosition fromGridPosition, GridPosition toGridPosition)
+    {
+        RemoveUnitAtGridPosition(fromGridPosition, unit);
+        AddUnitAtGridPosition(toGridPosition, unit);
+    }
+
+    public bool IsGridPositionValid(Vector3 gridPosition) => levelGridSystem.IsGridPositionValid(gridPosition); //verilen Vektör oyun sýnýrlarý içinde mi?
+    //{
+    //   return levelGridSystem.IsGridPositionValid(gridPosition); lambda expresion ile ayný anlama geliyor
+    //}
+
+    public bool HasAnyUnitOnSelectedGridPosition(GridPosition gridPosition)
+    {
+        GridObject gridObject = levelGridSystem.GetGridObject(gridPosition);
+
+        return gridObject.HasAnyUnit();
+    }
 
 }

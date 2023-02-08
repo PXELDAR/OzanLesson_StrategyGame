@@ -6,26 +6,37 @@ using UnityEngine;
 [Serializable]
 public class GridObject 
 {
-    public int x = 1;
-    public int z = 1;
+    private GridPosition gridPosition;
+    private List<Unit> unitList;
     
 
 
     
-    public GridObject(int x, int z)
+    public GridObject(GridPosition gridPosition)
     {
-        this.x = x;
-        this.z = z;
-        
-
-    
+       this.gridPosition = gridPosition;
+       unitList= new List<Unit>();
     }
 
-    override public string ToString()
-    {
-        //return $"Bu gridin x deðeri : {x} , z deðeri : {z}"; //string interpolasyonu
-        return $"X:{x},Z:{z}";
+   
 
+    public void AddUnit(Unit unit)
+    {
+        unitList.Add(unit);
+    }
+
+    public void RemoveUnit(Unit unit) 
+    {
+        unitList.Remove(unit);
+    }
+
+    public List<Unit> GetUnitList()
+    {
+        return unitList;
+    }
+    public bool HasAnyUnit()
+    {
+        return unitList.Count > 0;
     }
 
     

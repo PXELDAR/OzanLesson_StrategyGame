@@ -19,8 +19,8 @@ public class GridSystem
         {
             for (int z = 0; z < height; z++)
             {
-                gridObjectsArray[x, z] = new GridObject(x, z);
-
+                GridPosition gridPosition=new GridPosition(x,z);
+                gridObjectsArray[x, z] = new GridObject(gridPosition);
             }
         }
     }
@@ -31,24 +31,37 @@ public class GridSystem
         {
             for (int z = 0; z < height; z++)
             {
-                GridObject gridObject = new GridObject(x, z);
-                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridObject), Quaternion.identity);
+                GridPosition gridPosition = new GridPosition(x, z);
+                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
                 GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                gridDebugObject.SetGridObject(gridObject);
+                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
 
             }
 
         }
     }
 
-    public Vector3 GetWorldPosition(GridObject gridObject, bool isDebug = false)
+    public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
-        Vector3 pos = new Vector3(gridObject.x, 0, gridObject.z) * size;
+        Vector3 pos = new Vector3(gridPosition.x, 0, gridPosition.z) * size;
         return pos;
     }
 
-    public GridObject GetGridObject(Vector3 gridPosition)
+    public GridObject GetGridObject(GridPosition gridPosition)
     {
-        return gridObjectsArray[(int)gridPosition.x, (int)gridPosition.z]; //variable casting
+        return gridObjectsArray[gridPosition.x, gridPosition.z]; //variable casting
+        // Refactoring gerekebilir.
+    }
+
+    public bool IsGridPositionValid(Vector3 gridPosition)
+    {
+        if( gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height)
+        {
+            return true;
+        }
+
+        return false;
+
+        // return gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height; // ikisi ayný þekilde çalýþýr
     }
 }
