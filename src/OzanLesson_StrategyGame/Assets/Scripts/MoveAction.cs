@@ -53,7 +53,7 @@ public class MoveAction : BaseAction
 
     public bool IsValidActionPoisiton(GridPosition gridposition)
     {
-        List<GridPosition> validGridPositionList= GetValidActionGridPositionList();
+         validGridPositionList= GetValidActionGridPositionList();
         return validGridPositionList.Contains(gridposition); //dýþarýdan gelen pozisyon bu listede var mý? 
         //contains fonksiyonu true veya false döndürür
 

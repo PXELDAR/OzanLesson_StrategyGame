@@ -18,7 +18,19 @@ public class GridObject
        unitList= new List<Unit>();
     }
 
-   
+    public override string ToString()
+    {
+        string unitString = string.Empty;
+
+        foreach(Unit unit in unitList)
+        {
+            unitString += unit + "\n";
+        }
+
+        return gridPosition.ToString() + "\n" + unitString;
+    }
+
+
 
     public void AddUnit(Unit unit)
     {
