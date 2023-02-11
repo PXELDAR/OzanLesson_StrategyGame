@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    GridPosition gridPosition;
-    private bool canMove;
-    private float stoppingDistance = 0.1f;
     [SerializeField] private float moveSpeed = 4f;
     GridPosition gridposition;
     MoveAction moveAction;

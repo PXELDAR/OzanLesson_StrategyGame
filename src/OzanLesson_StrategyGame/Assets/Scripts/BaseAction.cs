@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public abstract class BaseAction : MonoBehaviour //Abtract sýnýflar sasdece bir þeyleri tanýmlamak için kullanýlýr.
 {
     protected Unit unit;

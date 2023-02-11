@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MoveAction : BaseAction
 {
+    List<GridPosition> validGridPositionList = new List<GridPosition>();
     [SerializeField] int maxMoveDistance = 1;
     private Vector3 targetPosition;
     float stoppingDistance = .1f;
@@ -47,6 +48,7 @@ public class MoveAction : BaseAction
     public void Move(GridPosition gridPosition)
     {
         targetPosition = LevelGrid.instance.GetWorldPosition(gridPosition);
+        isActive= true;
     }
 
     public bool IsValidActionPoisiton(GridPosition gridposition)

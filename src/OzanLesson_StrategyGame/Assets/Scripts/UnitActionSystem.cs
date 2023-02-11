@@ -54,14 +54,17 @@ public class UnitActionSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
+            Debug.Log("Týklýyorum");
             if (TryHandleUnitSelection())
             {
+                Debug.Log("Girdi");
                 GridPosition mouseGridPosition = LevelGrid.instance.GetGridPosition(MouseWorld.GetPosition());
 
                 if (selectedUnit.GetMoveAction().IsValidActionPoisiton(mouseGridPosition))
                 {
+                    Debug.Log("Çalýþtý");
                     SetBusy();
+                    selectedUnit.GetMoveAction().Move(mouseGridPosition);
                 }
 
             }
@@ -76,6 +79,8 @@ public class UnitActionSystem : MonoBehaviour
 
    public bool TryHandleUnitSelection()
     {
+
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, unitLayerMask))
