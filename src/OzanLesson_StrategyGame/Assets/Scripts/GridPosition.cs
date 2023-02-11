@@ -29,4 +29,27 @@ public class GridPosition
     {
         return HashCode.Combine(x, z);
     }
+
+    public static GridPosition operator + (GridPosition a, GridPosition b)
+    //operator keywordu struct'ýn içinde yeni bir operatör tanýmlamak için kullanýlýr
+    {
+        return new GridPosition(a.x + b.x, a.z+b.z);
+    }
+
+    public static GridPosition operator - (GridPosition a, GridPosition b)
+    {
+        return new GridPosition(a.x - b.x, a.z - b.z);
+    }
+
+    public static bool operator == (GridPosition a, GridPosition b)
+    {
+        return a.x ==b.x && a.z ==b.z;
+    }
+
+    public static bool operator != (GridPosition a, GridPosition b)
+    {
+        return !(a == b);
+    }
+
+
 }

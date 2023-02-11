@@ -44,9 +44,9 @@ public class MoveAction : BaseAction
    
     }
 
-    public void Move(Vector3 gridPosition)
+    public void Move(GridPosition gridPosition)
     {
-        targetPosition = LevelGrid.instance.levelGridSystem.GetWorldPosition(gridPosition);
+        targetPosition = LevelGrid.instance.GetWorldPosition(gridPosition);
     }
 
     public bool IsValidActionPoisiton(GridPosition gridposition)
@@ -61,8 +61,8 @@ public class MoveAction : BaseAction
 
     public List<GridPosition> GetValidActionGridPositionList()
     {
-        List<Vector3> validGridPositionList = new List<Vector3>();
-        Vector3 unitGridposition = unit.GetGridPosition();
+        List<GridPosition> validGridPositionList = new List<GridPosition>();
+        GridPosition unitGridposition = unit.GetGridPosition();
 
         for(int x = -maxMoveDistance; x < maxMoveDistance; x++)
         {

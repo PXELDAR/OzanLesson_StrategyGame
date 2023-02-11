@@ -53,7 +53,7 @@ public class GridSystem
         // Refactoring gerekebilir.
     }
 
-    public bool IsGridPositionValid(Vector3 gridPosition)
+    public bool IsGridPositionValid(GridPosition gridPosition)
     {
         if( gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height)
         {

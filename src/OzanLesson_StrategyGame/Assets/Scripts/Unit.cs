@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    Vector3 targetPosition;
+    GridPosition gridPosition;
     private bool canMove;
     private float stoppingDistance = 0.1f;
     [SerializeField] private float moveSpeed = 4f;
@@ -25,25 +25,13 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-        Vector3 newGridPosition = LevelGrid.instance.GetGridPosition(transform.position);
+        GridPosition newGridPosition = LevelGrid.instance.GetGridPosition(transform.position);
 
         if (newGridPosition != gridposition) //her frame hareket eden unit pozisyonunu kontrol ediyoruz
         {
             LevelGrid.instance.UnitgMoveGridPosition(this, gridposition, newGridPosition);
             gridposition= newGridPosition;
         }
-    }
-
-    public void Move(GridObject grid)
-    {
-        targetPosition = LevelGrid.instance.levelGridSystem.GetWorldPosition(grid);
-
-        if (targetPosition == Vector3.zero)
-        {
-            targetPosition = new Vector3(5, 1, 8);
-        }
-
-        canMove = true;
     }
 
     public MoveAction GetMoveAction()

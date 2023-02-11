@@ -43,7 +43,7 @@ public class LevelGrid : MonoBehaviour
         AddUnitAtGridPosition(toGridPosition, unit);
     }
 
-    public bool IsGridPositionValid(Vector3 gridPosition) => levelGridSystem.IsGridPositionValid(gridPosition); //verilen Vektör oyun sýnýrlarý içinde mi?
+    public bool IsGridPositionValid(GridPosition gridPosition) => levelGridSystem.IsGridPositionValid(gridPosition); //verilen Vektör oyun sýnýrlarý içinde mi?
     //{
     //   return levelGridSystem.IsGridPositionValid(gridPosition); lambda expresion ile ayný anlama geliyor
     //}
@@ -53,6 +53,11 @@ public class LevelGrid : MonoBehaviour
         GridObject gridObject = levelGridSystem.GetGridObject(gridPosition);
 
         return gridObject.HasAnyUnit();
+    }
+
+    public Vector3 GetWorldPosition(GridPosition gridPosition)
+    {
+        return levelGridSystem.GetWorldPosition(gridPosition);
     }
 
 }
