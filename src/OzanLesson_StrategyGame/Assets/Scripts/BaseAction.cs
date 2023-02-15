@@ -15,5 +15,9 @@ public abstract class BaseAction : MonoBehaviour //Abtract sýnýflar sasdece bir 
     }
 
     abstract public string GetActionName(); //Abtract fonksyionlarýn için boþ olur.
+
+    protected Action onActionComplete; 
+
+
     
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -36,6 +37,7 @@ public class MoveAction : BaseAction
         else
         {
             isActive = false;
+            onActionComplete();
             //Yürüme animasyonunu durdur.
         }
 
@@ -45,8 +47,9 @@ public class MoveAction : BaseAction
    
     }
 
-    public void Move(GridPosition gridPosition)
+    public void Move(GridPosition gridPosition, Action onActionComplete)
     {
+        this.onActionComplete= onActionComplete;
         targetPosition = LevelGrid.instance.GetWorldPosition(gridPosition);
         isActive= true;
     }
@@ -66,9 +69,9 @@ public class MoveAction : BaseAction
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridposition = unit.GetGridPosition();
 
-        for(int x = -maxMoveDistance; x < maxMoveDistance; x++)
+        for(int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {
-            for (int z = -maxMoveDistance; z < maxMoveDistance; z++)
+            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridposition + offsetGridPosition;

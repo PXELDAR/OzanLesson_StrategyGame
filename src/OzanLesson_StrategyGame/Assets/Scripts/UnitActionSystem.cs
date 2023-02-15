@@ -15,6 +15,8 @@ public class UnitActionSystem : MonoBehaviour
     public delegate void OnSelectedUnitChange(Unit unit);
     public event OnSelectedUnitChange onSelectedUnit;
 
+    
+
     public void SelectedUnitChange(Unit unit)
     {
         /* if(onSelectedUnit != null) //
@@ -55,19 +57,20 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Týklýyorum");
-            if (TryHandleUnitSelection())
-            {
-                Debug.Log("Girdi");
-                GridPosition mouseGridPosition = LevelGrid.instance.GetGridPosition(MouseWorld.GetPosition());
+            if (TryHandleUnitSelection()) return;
+            
+            Debug.Log("Girdi");
+            GridPosition mouseGridPosition = LevelGrid.instance.GetGridPosition(MouseWorld.GetPosition());
 
-                if (selectedUnit.GetMoveAction().IsValidActionPoisiton(mouseGridPosition))
-                {
+            if (selectedUnit.GetMoveAction().IsValidActionPoisiton(mouseGridPosition))
+            {
                     Debug.Log("Çalýþtý");
                     SetBusy();
-                    selectedUnit.GetMoveAction().Move(mouseGridPosition);
-                }
-
+                    selectedUnit.GetMoveAction().Move(mouseGridPosition, ClearSetBusy);                   
             }
+
+
+            
 
 
         }
@@ -117,4 +120,8 @@ public class UnitActionSystem : MonoBehaviour
     {
         isBusy=false;
     }
+
+    public Unit GetSelectedUnit() { return selectedUnit; }
+
+    
 }
