@@ -1,15 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+ï»¿using System;
 
 [Serializable]
 public class GridPosition
 {
-    public int x;
-    public int z;
+    public readonly int x;
+    public readonly int z;
 
-    public GridPosition(int x, int z) 
+    public GridPosition(int x, int z)
     {
         this.x = x;
         this.z = z;
@@ -17,40 +14,38 @@ public class GridPosition
 
     public override bool Equals(object obj)
     {
-        return obj is GridPosition position && x == position.x && z== position.z;
+        return obj is GridPosition position && x == position.x && z == position.z;
     }
 
     public override string ToString()
     {
-        //return $"Bu gridin x deðeri : {x} , z deðeri : {z}"; //string interpolasyonu
+        //return $"Bu gridin x degeri : {x} , z degeri : {z}"; //string interpolasyonu
         return $"X:{x},Z:{z}";
-
     }
+
     public override int GetHashCode()
     {
         return HashCode.Combine(x, z);
     }
 
-    public static GridPosition operator + (GridPosition a, GridPosition b)
-    //operator keywordu struct'ýn içinde yeni bir operatör tanýmlamak için kullanýlýr
+    public static GridPosition operator +(GridPosition a, GridPosition b)
+        //operator keywordu struct'Ã½n iÃ§inde yeni bir operatÃ¶r tanÃ½mlamak iÃ§in kullanÃ½lÃ½r
     {
-        return new GridPosition(a.x + b.x, a.z+b.z);
+        return new GridPosition(a.x + b.x, a.z + b.z);
     }
 
-    public static GridPosition operator - (GridPosition a, GridPosition b)
+    public static GridPosition operator -(GridPosition a, GridPosition b)
     {
         return new GridPosition(a.x - b.x, a.z - b.z);
     }
 
-    public static bool operator == (GridPosition a, GridPosition b)
+    public static bool operator ==(GridPosition a, GridPosition b)
     {
-        return a.x ==b.x && a.z ==b.z;
+        return a.x == b.x && a.z == b.z;
     }
 
-    public static bool operator != (GridPosition a, GridPosition b)
+    public static bool operator !=(GridPosition a, GridPosition b)
     {
         return !(a == b);
     }
-
-
 }

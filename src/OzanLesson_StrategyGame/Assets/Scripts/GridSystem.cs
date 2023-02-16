@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class GridSystem
 {
-    public int width;
-    public int height;
-    public float size;
+    public readonly int width;
+    public readonly int height;
+    public readonly float size;
     private GridObject[,] gridObjectsArray;
 
     public GridSystem(int width, int height, float size) //constructor
@@ -12,14 +12,12 @@ public class GridSystem
         this.width = width; // x axis
         this.height = height; // y axis
         this.size = size; // z axis
-
         gridObjectsArray = new GridObject[width, height];
-
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
-                GridPosition gridPosition=new GridPosition(x,z);
+                GridPosition gridPosition = new GridPosition(x, z);
                 gridObjectsArray[x, z] = new GridObject(gridPosition);
             }
         }
@@ -32,12 +30,11 @@ public class GridSystem
             for (int z = 0; z < height; z++)
             {
                 GridPosition gridPosition = new GridPosition(x, z);
-                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
+                Transform debugTransform =
+                    GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
                 GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
                 gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-
             }
-
         }
     }
 
@@ -50,18 +47,17 @@ public class GridSystem
     public GridObject GetGridObject(GridPosition gridPosition)
     {
         return gridObjectsArray[gridPosition.x, gridPosition.z]; //variable casting
-        // Refactoring gerekebilir.
     }
 
     public bool IsGridPositionValid(GridPosition gridPosition)
     {
-        if( gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height)
+        if (gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height)
         {
             return true;
         }
 
         return false;
 
-        // return gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height; // ikisi ayný þekilde çalýþýr
+        // return gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < width && gridPosition.z < height; // ikisi ayni sekilde calisir
     }
 }

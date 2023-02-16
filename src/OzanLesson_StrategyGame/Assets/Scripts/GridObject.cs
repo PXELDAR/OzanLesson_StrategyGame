@@ -1,55 +1,46 @@
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
-public class GridObject 
+public class GridObject
 {
-    private GridPosition gridPosition;
-    private List<Unit> unitList;
-    
+    private GridPosition _gridPosition;
+    private List<Unit> _unitList;
 
-
-    
     public GridObject(GridPosition gridPosition)
     {
-       this.gridPosition = gridPosition;
-       unitList= new List<Unit>();
+        this._gridPosition = gridPosition;
+        _unitList = new List<Unit>();
     }
 
     public override string ToString()
     {
         string unitString = string.Empty;
-
-        foreach(Unit unit in unitList)
+        foreach (Unit unit in _unitList)
         {
             unitString += unit + "\n";
         }
 
-        return gridPosition.ToString() + "\n" + unitString;
+        return $"{_gridPosition.ToString()}\n{unitString}";
     }
-
-
 
     public void AddUnit(Unit unit)
     {
-        unitList.Add(unit);
+        _unitList.Add(unit);
     }
 
-    public void RemoveUnit(Unit unit) 
+    public void RemoveUnit(Unit unit)
     {
-        unitList.Remove(unit);
+        _unitList.Remove(unit);
     }
 
     public List<Unit> GetUnitList()
     {
-        return unitList;
-    }
-    public bool HasAnyUnit()
-    {
-        return unitList.Count > 0;
+        return _unitList;
     }
 
-    
+    public bool HasAnyUnit()
+    {
+        return _unitList.Count > 0;
+    }
 }

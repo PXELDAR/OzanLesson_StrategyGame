@@ -1,45 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 4f;
-    GridPosition gridposition;
-    MoveAction moveAction;
+    private GridPosition _gridposition;
+    private MoveAction _moveAction;
 
     private void Awake()
     {
-        moveAction= GetComponent<MoveAction>();
+        _moveAction = GetComponent<MoveAction>();
     }
 
     private void Start()
     {
-        gridposition = LevelGrid.instance.GetGridPosition(transform.position);
-        LevelGrid.instance.AddUnitAtGridPosition(gridposition,this);
+        _gridposition = LevelGrid.Instance.GetGridPosition(transform.position);
+        LevelGrid.Instance.AddUnitAtGridPosition(_gridposition, this);
     }
 
-    void Update()
+    private void Update()
     {
-        GridPosition newGridPosition = LevelGrid.instance.GetGridPosition(transform.position);
-
-        if (newGridPosition != gridposition) //her frame hareket eden unit pozisyonunu kontrol ediyoruz
+        GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        if (newGridPosition != _gridposition) //her frame hareket eden unit pozisyonunu kontrol ediyoruz
         {
-            LevelGrid.instance.UnitgMoveGridPosition(this, gridposition, newGridPosition);
-            gridposition= newGridPosition;
+            LevelGrid.Instance.UnitgMoveGridPosition(this, _gridposition, newGridPosition);
+            _gridposition = newGridPosition;
         }
     }
 
     public MoveAction GetMoveAction()
     {
-        return moveAction;
+        return _moveAction;
     }
 
     public GridPosition GetGridPosition()
     {
-        return gridposition;
+        return _gridposition;
     }
-
-
 }

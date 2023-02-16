@@ -1,23 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class BaseAction : MonoBehaviour //Abtract sýnýflar sasdece bir þeyleri tanýmlamak için kullanýlýr.
+public abstract class BaseAction : MonoBehaviour //Abtract siniflar sasdece bir seyleri tanimlamak icin kullanilir.
 {
-    protected Unit unit;
-    protected bool isActive;// protected keywordu sadece subclasslerden görünür.
+    protected Unit Unit;
+    protected bool IsActive; // protected keywordu sadece subclasslerden gorunur.
+    protected Action OnActionComplete;
 
-    protected virtual void Awake() //Virtual fonksiyonlarýn içi dolu olabilir
+    protected virtual void Awake() //Virtual fonksiyonlarin ici dolu olabilir
     {
-        unit= GetComponent<Unit>();
+        Unit = GetComponent<Unit>();
     }
 
-    abstract public string GetActionName(); //Abtract fonksyionlarýn için boþ olur.
-
-    protected Action onActionComplete; 
-
-
-    
+    public abstract string GetActionName(); //Abtract fonksyionlarin ici bos olur.
 }

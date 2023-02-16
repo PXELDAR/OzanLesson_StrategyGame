@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GridDebugObject : MonoBehaviour
 {
-    [SerializeField] TextMeshPro gridDebug;
-    GridObject gridObject;
-    
+    [SerializeField] private TextMeshPro textMeshPro;
+    private GridObject _gridObject;
+
     public void SetGridObject(GridObject gridObject)
     {
-        this.gridObject= gridObject;
-        gridDebug.text = gridObject.ToString();
+        this._gridObject = gridObject;
+        textMeshPro.text = gridObject.ToString();
+    }
+    
+    private void Update()
+    {
+        textMeshPro.text = _gridObject.ToString();
     }
 }

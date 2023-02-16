@@ -1,28 +1,24 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class LevelGrid : MonoBehaviour
 {
-    [SerializeField][Range(2, 20)] public int width;
-    [SerializeField][Range(2, 20)] public int height;
-    [SerializeField][Range(1f, 5f)] public float size;
+    [SerializeField] [Range(2, 20)] public int width;
+    [SerializeField] [Range(2, 20)] public int height;
+    [SerializeField] [Range(1f, 5f)] public float size;
     [SerializeField] private Transform gridPrefab;
     public GridSystem levelGridSystem { get; private set; }
-
-    public static LevelGrid instance;
-
+    public static LevelGrid Instance;
 
     private void Awake()
     {
         levelGridSystem = new GridSystem(width, height, size);
         levelGridSystem.CreateGridDebug(gridPrefab);
-
-        instance = this;
+        Instance = this;
     }
 
     public GridPosition GetGridPosition(Vector3 worldPosition)
     {
         return new GridPosition(Mathf.RoundToInt(worldPosition.x / size), Mathf.RoundToInt(worldPosition.z / size));
-
     }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
@@ -43,15 +39,18 @@ public class LevelGrid : MonoBehaviour
         AddUnitAtGridPosition(toGridPosition, unit);
     }
 
-    public bool IsGridPositionValid(GridPosition gridPosition) => levelGridSystem.IsGridPositionValid(gridPosition); //verilen Vektör oyun sýnýrlarý içinde mi?
+    public bool IsGridPositionValid(GridPosition gridPosition)
+    {
+        return levelGridSystem.IsGridPositionValid(gridPosition);
+        //verilen VektÃ¶r oyun sinirlari icinde mi?
+    }
     //{
-    //   return levelGridSystem.IsGridPositionValid(gridPosition); lambda expresion ile ayný anlama geliyor
+    //   return levelGridSystem.IsGridPositionValid(gridPosition); lambda expresion ile ayni anlama geliyor
     //}
 
     public bool HasAnyUnitOnSelectedGridPosition(GridPosition gridPosition)
     {
         GridObject gridObject = levelGridSystem.GetGridObject(gridPosition);
-
         return gridObject.HasAnyUnit();
     }
 
@@ -59,5 +58,4 @@ public class LevelGrid : MonoBehaviour
     {
         return levelGridSystem.GetWorldPosition(gridPosition);
     }
-
 }
