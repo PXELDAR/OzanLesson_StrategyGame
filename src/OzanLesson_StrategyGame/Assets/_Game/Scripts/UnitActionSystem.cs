@@ -1,15 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 public class UnitActionSystem : MonoBehaviour
 {
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
-    private bool _isBusy;
+
     public static UnitActionSystem Instance { get; private set; }
     public delegate void OnSelectedUnitChange(Unit unit);
     public event OnSelectedUnitChange onSelectedUnit;
-
     public void SelectedUnitChange(Unit unit)
     {
         /* if(onSelectedUnit != null) //
@@ -18,6 +18,11 @@ public class UnitActionSystem : MonoBehaviour
         } */
         onSelectedUnit?.Invoke(unit);
     }
+    
+    private bool _isBusy;
+    private bool _canMove;
+
+
 
     private void Awake()
     {
@@ -31,12 +36,35 @@ public class UnitActionSystem : MonoBehaviour
         Instance = this;
     }
 
+    private void OnEnable()
+    {
+        GameTurnStateLogic.Instance.onGameTurnStateChange += OnGameTurnStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameTurnStateLogic.Instance.onGameTurnStateChange -= OnGameTurnStateChanged;
+    }
+
+    private void OnGameTurnStateChanged(GameTurnStateLogic.GameTurnState newState)
+    {
+        _canMove = newState == GameTurnStateLogic.GameTurnState.PlayerTurn;
+
+        if (newState == GameTurnStateLogic.GameTurnState.PlayerTurn)
+        {
+            _canMove = true;
+        }
+        else
+        {
+            _canMove = false;
+        }
+    }
+
     private void Update()
     {
-        if (_isBusy)
-        {
-            return;
-        }
+        //(if (GameStateLogic.Instance.GetCurrentGameTurnState() != GameStateLogic.GameTurnState.PlayerTurn) return;
+        if (!_canMove) return;
+        if (_isBusy) return;
 
         if (Input.GetMouseButtonDown(0))
         {
